@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7231572233013988,
+      "y": 6.738829325819981
+    },
+    "rotation": 59.62087398863168
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterShooting1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Autonomous2 Path1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Autonomus2 Path2"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
