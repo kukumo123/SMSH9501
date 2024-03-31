@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.ElvatorCmd;
+// import frc.robot.commands.ElvatorCmd;
 import frc.robot.commands.IntakeCmd;
 import frc.robot.commands.ShooterCmd;
 import frc.robot.commands.SwerveJoystickCmd;
@@ -101,16 +101,22 @@ public class RobotContainer {
       }
     
     new JoystickButton(driverJoytick, Button.kX.value).whileTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading(),swerveSubsystem));
+    // pov0.onTrue(new IntakeCmd(intake, 0, -0.6).withTimeout(0.98));
+
+    // new JoystickButton(driverJoytick, Button.kY.value).onTrue(new IntakeCmd(intake, 0, 0.5).withTimeout(1.1));//IntakeCtrl
+
     new JoystickButton(driverJoytick, Button.kStart.value).whileTrue(new IntakeCmd(intake, -0.5, 0));//
     new JoystickButton(driverJoytick, Button.kLeftBumper.value).whileTrue(new IntakeCmd(intake, 1, 0));//Intake
 
     new JoystickButton(driverJoytick, Button.kRightBumper.value).whileTrue(new  ShooterCmd(shooter, 1, -1));//Shoot
-    new JoystickButton(driverJoytick, Button.kB.value).whileTrue(new ElvatorCmd(elvator, 1 , 1));//
-    new JoystickButton(driverJoytick, Button.kA.value).whileTrue(new ElvatorCmd(elvator, -1, -1));//Elvator
+    // new JoystickButton(driverJoytick, Button.kB.value).whileTrue(new ElvatorCmd(elvator, 1 , 1));//
+    // new JoystickButton(driverJoytick, Button.kA.value).whileTrue(new ElvatorCmd(elvator, -1, -1));//Elvator
     new JoystickButton(driverJoytick, Button.kBack.value).whileTrue((new ShooterCmd(shooter, 0.2, -0.2)));
     new JoystickButton(driverJoytick, Button.kBack.value).whileTrue((new IntakeCmd(intake, 0.25, 0)));
-    new JoystickButton(driverJoytick, Button.kY.value).onTrue(new InstantCommand(() -> intake.setIntakUPPosition(0), intake));
-    pov0.onTrue(new InstantCommand(() -> intake.setIntakDownPosition(40), intake));
+    new JoystickButton(driverJoytick, Button.kY.value).onTrue(new InstantCommand(() -> intake.setIntakUPPosition(), intake));
+    pov0.onTrue(new InstantCommand(() -> intake.setIntakDownPosition(), intake));
+    new JoystickButton(driverJoytick, Button.kA.value).whileTrue((new InstantCommand(() -> elvator.LeftMotor(1), elvator)));
+    new JoystickButton(driverJoytick, Button.kB.value).whileTrue((new InstantCommand(() -> elvator.RightMotor(1), elvator)));
     }
 
 
