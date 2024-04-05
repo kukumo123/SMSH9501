@@ -1,20 +1,25 @@
 package frc.robot;
 
 
+// import com.ctre.phoenix6.hardware.CANcoder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
+// import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+// import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+// import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+// import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.OIConstants;
-// import frc.robot.commands.ElvatorCmd;
 import frc.robot.commands.IntakeCmd;
 import frc.robot.commands.ShooterCmd;
 import frc.robot.commands.SwerveJoystickCmd;
@@ -26,8 +31,9 @@ import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer {
 
+
+
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-    private double Rotation = Constants.DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond;
     private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
     // private final Joystick controlStick = new Joystick(OIConstants.kControlPort);
     private final POVButton pov0 = new POVButton(driverJoytick, 0);
@@ -42,25 +48,24 @@ public class RobotContainer {
     private String m_autoSelected;
     private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-    
+
 
     public RobotContainer() {
+        
         NamedCommands.registerCommand("Gyro", new InstantCommand(() -> swerveSubsystem.zeroHeading()));
         NamedCommands.registerCommand("ShooterShooting1", new ShooterCmd(shooter, 1, -1).withTimeout(1));
         NamedCommands.registerCommand("Shooting1", new ParallelCommandGroup(
           new IntakeCmd(intake, 1, 0).withTimeout(1),
           new ShooterCmd(shooter, 1, -1).withTimeout(1)
         ));
-        NamedCommands.registerCommand("PutDownIntake", new IntakeCmd(intake,0 ,0.5 ).withTimeout(1.1));
+        NamedCommands.registerCommand("PutDownIntake", new IntakeCmd(intake,0 ,0.5 ).withTimeout(1.1));   
         NamedCommands.registerCommand("GetNote", new IntakeCmd(intake,0.3,0).withTimeout(0.5));
         NamedCommands.registerCommand("GetUPIntake", new IntakeCmd(intake,0,-0.6).withTimeout(0.95));
         NamedCommands.registerCommand("Shooting2", new ParallelCommandGroup(
-          new IntakeCmd(intake, 1, 0).withTimeout(1),
+          new IntakeCmd(intake, 0.7, 0).withTimeout(1),
           new ShooterCmd(shooter, 1, -1).withTimeout(1)
         ));
-
         
-
         m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
         m_chooser.addOption("Auto", middleStart);
         m_chooser.addOption("Auto2", RightStart);
@@ -80,51 +85,34 @@ public class RobotContainer {
 
         swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
                 swerveSubsystem,
-                () -> driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
-                () -> -driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
-                () -> -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
+                () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
+                () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
+                () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
                 () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
         new InstantCommand();
-        configureButtonBindings();  
-
-
-
-        
+        configureButtonBindings();     
     }
+
 
     private void configureButtonBindings() {
-      if (driverJoytick.getRawButton(10)) {
-        System.out.println("ABC");
-        Rotation = Rotation*1.5;
-      } else {
-        Rotation = Rotation*1;
-      }
-    
+
     new JoystickButton(driverJoytick, Button.kX.value).whileTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading(),swerveSubsystem));
-    // pov0.onTrue(new IntakeCmd(intake, 0, -0.6).withTimeout(0.98));
-
-    // new JoystickButton(driverJoytick, Button.kY.value).onTrue(new IntakeCmd(intake, 0, 0.5).withTimeout(1.1));//IntakeCtrl
-
-    new JoystickButton(driverJoytick, Button.kStart.value).whileTrue(new IntakeCmd(intake, -0.5, 0));//
-    new JoystickButton(driverJoytick, Button.kLeftBumper.value).whileTrue(new IntakeCmd(intake, 1, 0));//Intake
-
-    new JoystickButton(driverJoytick, Button.kRightBumper.value).whileTrue(new  ShooterCmd(shooter, 1, -1));//Shoot
-    // new JoystickButton(driverJoytick, Button.kB.value).whileTrue(new ElvatorCmd(elvator, 1 , 1));//
-    // new JoystickButton(driverJoytick, Button.kA.value).whileTrue(new ElvatorCmd(elvator, -1, -1));//Elvator
-    new JoystickButton(driverJoytick, Button.kBack.value).whileTrue((new ShooterCmd(shooter, 0.2, -0.2)));
-    new JoystickButton(driverJoytick, Button.kBack.value).whileTrue((new IntakeCmd(intake, 0.25, 0)));
-    new JoystickButton(driverJoytick, Button.kY.value).onTrue(new InstantCommand(() -> intake.setIntakUPPosition(), intake));
-    pov0.onTrue(new InstantCommand(() -> intake.setIntakDownPosition(), intake));
-    new JoystickButton(driverJoytick, Button.kA.value).whileTrue((new InstantCommand(() -> elvator.LeftMotor(1), elvator)));
-    new JoystickButton(driverJoytick, Button.kB.value).whileTrue((new InstantCommand(() -> elvator.RightMotor(1), elvator)));
+    
+    new JoystickButton(driverJoytick, Button.kStart.value).whileTrue(new IntakeCmd(intake, -1, 0));
+    new JoystickButton(driverJoytick, Button.kLeftBumper.value).whileTrue(new IntakeCmd(intake, 1, 0));
+    new JoystickButton(driverJoytick, Button.kRightBumper.value).whileTrue(new  ShooterCmd(shooter, 1, -1));
+    //Intake 控制
+    new JoystickButton(driverJoytick, Button.kA.value).whileTrue(new InstantCommand(() -> elvator.LetRobotUP()));
+    new JoystickButton(driverJoytick, Button.kB.value).whileTrue(new InstantCommand(() -> elvator.LetRobotDOWN()));
     }
 
 
-
-    public Command getAutonomousCommand() {
-      return new SequentialCommandGroup(
-        new SwerveJoystickCmd(swerveSubsystem, ()-> -0.6, ()-> 0d, ()-> 0d, ()->true).withTimeout(5)
-      );
-      }}
-
+    // public Command getAutonomousCommand(){
+    //   return new SwerveJoystickCmd(swerveSubsystem, ()-> 1d, ()-> 0d, ()-> 0d, ()->true).withTimeout(20);
+    // }
+    public PathPlannerAuto getAutonomousCommand() {
+      return new PathPlannerAuto(m_chooser.getSelected());    
+      }
+    }
+  
 
