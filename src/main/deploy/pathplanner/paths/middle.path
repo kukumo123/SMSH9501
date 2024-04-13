@@ -1,0 +1,235 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.3075059707166388,
+        "y": 5.509594911807273
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.9119618721352059,
+        "y": 5.509594911807273
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.5678258067925523,
+        "y": 3.877377419184368
+      },
+      "prevControl": {
+        "x": 2.0786384593989933,
+        "y": 3.7739572125028666
+      },
+      "nextControl": {
+        "x": 2.602260774991348,
+        "y": 3.884657393916269
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3075059707166388,
+        "y": 5.51
+      },
+      "prevControl": {
+        "x": 2.726226660507012,
+        "y": 5.523773987279518
+      },
+      "nextControl": {
+        "x": 0.9524073718516989,
+        "y": 5.506552440787718
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.5678258067925523,
+        "y": 5.6
+      },
+      "prevControl": {
+        "x": 1.0752307266921117,
+        "y": 5.5383225173512205
+      },
+      "nextControl": {
+        "x": 4.2344782676142545,
+        "y": 5.668869936397591
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3075059707166388,
+        "y": 5.509594911807273
+      },
+      "prevControl": {
+        "x": 1.6131671484326613,
+        "y": 5.072079892723557
+      },
+      "nextControl": {
+        "x": 1.0612556439978393,
+        "y": 5.8620708696596715
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.5678258067925523,
+        "y": 7.6
+      },
+      "prevControl": {
+        "x": 2.2318158125674317,
+        "y": 7.522997709656743
+      },
+      "nextControl": {
+        "x": 2.898401501500989,
+        "y": 7.67575693003735
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3075059707166388,
+        "y": 5.4
+      },
+      "prevControl": {
+        "x": 1.100896161523866,
+        "y": 5.317356076322891
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Get Second Note",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Shoot Second Note",
+      "waypointRelativePos": 2.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "belt"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 3.05,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 3.95,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "belt"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 5.1,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 5.8,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "belt"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 250.0,
+    "maxAngularAcceleration": 45.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
